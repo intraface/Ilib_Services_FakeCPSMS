@@ -23,7 +23,7 @@ require_once 'Ilib/Services/CPSMS.php';
  *
  *
  * <code>
- * $sms = new Ilib_Services_FakeCPSMS('username', 'password', 'sendername');
+ * $sms = new Ilib_Services_FakeCPSMS('username', 'password', 'sendername', '/path/to/tempdir/');
  * $sms->setMessage('Test sms');
  * $sms->addRecipient('12345678');
  * $sms->addRecipient('87654321');
