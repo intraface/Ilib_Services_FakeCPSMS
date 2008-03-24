@@ -1,18 +1,65 @@
 <?php
+/**
+ * Class for easy testing of CPSMS gateway.
+ * 
+ * PHP Version 5
+ * 
+ * @category Services
+ * @package Ilib_Services_FakeCPSMS
+ * @author   Sune Jensen <sj@sunet.dk>
+ * @author   Lars Olesen <lars@legestue.net>
+ * 
+ */
 
 require_once 'Ilib/Services/CPSMS.php';
 
+/**
+ * Class for easy testing of CPSMS gateway.
+ * 
+ * Extends Ilib_Services_CPSMS
+ * 
+ * Instead of sending sms the it is written to
+ * a log file
+ *
+ *
+ * <code>
+ * $sms = new Ilib_Services_FakeCPSMS('username', 'password', 'sendername');
+ * $sms->setMessage('Test sms');
+ * $sms->addRecipient('12345678');
+ * $sms->addRecipient('87654321');
+ * $sms->send();
+ * </code>
+ *
+ * @category Services
+ * @package  Ilib_Services_FakeCPSMS
+ * @author   Sune Jensen <sj@sunet.dk>
+ * @author   Lars Olesen <lars@legestue.net>
+ * 
+ */
 class Ilib_Services_FakeCPSMS extends Ilib_Services_CPSMS
 {
     
     private $tmpdir;
 
+    /**
+     * Constructor
+     * 
+     * @param string username
+     * @param string password
+     * @param string sender name
+     * @param string path tmp directory to save sms log
+     */
     public function __construct($username, $password, $sendername, $tmp_directory)
     {
         parent::__construct($username, $password, $sendername);
         $this->tmpdir = $tmp_directory;
     }
     
+    /**
+     * Writes sms to log file
+     * 
+     * @return boolean true on success
+     */
     public function send()
     {
         if(empty($this->message)) {
